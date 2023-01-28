@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/homePage";
+import Home from "./pages/HomePage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
-import Test from "./pages/Test";
+import AddDetails from "./pages/AddDetails";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/test' element={<Test />} />
+        <Route path='/add-details' element={<AddDetails />} />
       </Routes>
     </div>
   );

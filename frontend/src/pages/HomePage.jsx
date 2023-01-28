@@ -1,11 +1,10 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import Card from "../components/Card";
 import { useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 
-export default function homePage() {
+export default function HomePage() {
   const [list, setList] = useState([]);
 
   const fetchHandler = async () => {
@@ -102,7 +101,7 @@ export default function homePage() {
                   </div>
                   <div className="hidden sm:block">
                     <a
-                      className="btn text-white py-4 px-12 rounded bg-gray-900 hover:bg-gray-800 w-full  sm:w-auto sm:ml-4"
+                      className="btn text-white py-4 px-12 rounded bg-gray-900 hover:bg-gray-800 w-full sm:w-auto sm:ml-4"
                       href="#0"
                     >
                       Learn more
