@@ -1,11 +1,12 @@
 import React from "react";
+import EmployeeCard from "../components/EmployeeCard";
 import { Layout } from "../components/layout";
 
 export const JobDetails = () => {
   return (
     <Layout>
       <div class='flex flex-col gap-4 h-full items-center justify-center rounded-lg mb-4 p-4 dark:bg-[#121212] border-[0.5px] dark:border-gray-800'>
-        <div class='dark:bg-gray-800 bg-gray-50  w-full flex flex-col sm:flex-row gap-3 sm:items-center justify-between px-5 py-4 rounded-md'>
+        <div class='dark:bg-gray-800 bg-gray-50  w-full flex flex-col gap-3 justify-between px-5 py-4 rounded-md'>
           <div>
             <span class='text-purple-800 text-sm dark:text-[#9CA3AF]'>
               Engineering
@@ -75,7 +76,7 @@ export const JobDetails = () => {
                 2 days ago
               </span>
             </div>
-            <p className='text-lg mt-8'>
+            <p className='text-lg font-light mt-8 dark:text-white'>
               We are looking for a Senior Full Stack Backend Engineer to join
               our team. You will be responsible for building and maintaining our
               backend services and APIs. You will be working closely with our
@@ -112,6 +113,11 @@ export const JobDetails = () => {
                 );
               })}
             </div>
+          </div>
+          <div className="flex flex-col justify-start mt-12">
+            <h1 className="text-2xl mb-4 font-medium dark:text-white">Recommended Candidates</h1>
+            <EmployeeCard />
+            <EmployeeCard />
           </div>
         </div>
       </div>

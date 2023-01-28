@@ -5,7 +5,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 
 export const Dashboard = () => {
   return (
-    <>
+    <ProtectedRoute>
       <Layout>
         <div class='p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700'>
           <div class='grid grid-cols-3 gap-4 mb-4 b-4'>
@@ -176,6 +176,6 @@ export const Dashboard = () => {
           </div>
         </div>
       </Layout>
-    </>
+    </ProtectedRoute>
   );
 };
