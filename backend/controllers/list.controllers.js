@@ -100,7 +100,7 @@ exports.getJob = asyncHandler(async (req, res, next) => {
 //   res.status(200).json({ success: true, data: job });
 // });
 
-// post request
+// put request
 exports.saveJobList = asyncHandler(async (req, res, next) => {
   const { jobList } = req.body;
   const job = await Job.findById(req.params.id);
@@ -108,13 +108,8 @@ exports.saveJobList = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("No job found", 404));
   }
   job.selectedEmployee = jobList;
-  const employees = [];
-  job.selectedEmployee.map(async (employee) => {
-    const temp = await Employee.findById(employee);
-    employees.push(temp);
-  });
   await job.save();
-  res.status(200).json({ success: true, data: job, employees: employees });
+  res.status(200).json({ success: true, data: job });
 });
 
 // jobId

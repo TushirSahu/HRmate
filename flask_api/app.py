@@ -60,9 +60,8 @@ def recommend_resume():
             "name":row['name'],
             "email":row['URL'],
             "location":row['location'],
-            "edu_info":row['edu_info'],
-            "skills":row['skills'],
-            "resume":row['resume'], 
+            "degree":row['degree'],
+            "skills":row['skills']
         })
     return jsonify(finalData)
         
