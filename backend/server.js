@@ -4,7 +4,6 @@ const colors = require("colors");
 const errorHandler = require("./middleware/error");
 const connection = require("./config/db");
 const cors = require("cors");
-
 dot.config({ path: "./config/config.env" });
 const PORT = process.env.PORT || 8000;
 
@@ -22,7 +21,7 @@ app.use("/api/v1/list", listRoutes)
 app.use(errorHandler);
 
 app.get("/", (req, res) => {
-    res.send("Hello World");
+    res.send("Hello Tushir");
 });
 
 process.on("unhandledRejection", (err, promise) => {
