@@ -45,7 +45,11 @@ exports.addJob = asyncHandler(async (req, res, next) => {
     "http://127.0.0.1:5000/recommend_resume",
     data
   );
-  jobData = { ...jobData, selectedEmployee: response.data };
+  let employeeList = response.data;
+  employeeList.map((employee) => {
+    employee = { ...employee, interview: false };
+  });
+  jobData = { ...jobData, selectedEmployee: employeeList };
   const job = await Job.create(jobData);
   if (!job) {
     return next(new ErrorResponse("Job not created", 400));
