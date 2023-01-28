@@ -112,37 +112,20 @@ exports.saveJobList = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: job, employees: employees });
 });
 
-// name: {
-//   type: String,
-// },
-// resume:{
-//   type: String,
-// },
-// email: {
-//   type: String,
-// },
-// location: {
-//   type: String,
-// },
-// skills : {
-//   type: String,
-// },
-// degree: {
-//   type: String,
-// },
-// edu_info : {
-//   type: String,
-// },
-// joblist : [
-//   {
-//       type: mongoose.Schema.ObjectId,
-//       ref: 'Job'
-//   }
-// ]
-
+// jobId
 exports.addEmployee = asyncHandler(async (req, res, next) => {
-  const { name, resume, email, location, skills, degree, edu_info } = req.body;
-  if (!name || !resume || !email || !location || !skills || !degree || !edu_info) {
+  const { name, resume, email, location, skills, degree, edu_info, jobId } =
+    req.body;
+  const job = await Job.findById(jobId);
+  if (
+    !name ||
+    !resume ||
+    !email ||
+    !location ||
+    !skills ||
+    !degree ||
+    !edu_info
+  ) {
     return next(new ErrorResponse("Please fill all the fields", 400));
   }
   let employeeData = {
@@ -154,7 +137,12 @@ exports.addEmployee = asyncHandler(async (req, res, next) => {
     degree,
     edu_info,
   };
-  employeeData.joblist = [];
+  job.selectedEmployee.push(employeeData._id);
+  if (jobId) {
+    employeeData.joblist.push(jobId);
+  } else {
+    employeeData.joblist = [];
+  }
   const employee = await Employee.create(employeeData);
   if (!employee) {
     return next(new ErrorResponse("Employee not created", 400));
