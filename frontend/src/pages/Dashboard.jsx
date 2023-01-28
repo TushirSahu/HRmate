@@ -8,8 +8,8 @@ export const Dashboard = () => {
     <ProtectedRoute>
       <Layout>
         <div class='p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700'>
-          <div class='grid grid-cols-3 gap-4 mb-4 b-4'>
-            <div class='flex items-center justify-center rounded-lg bg-gray-50 dark:bg-gray-800'>
+          <div class='grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 b-4'>
+            <div class='flex items-center justify-center col-span-2 md:col-span-1 rounded-lg bg-gray-50 dark:bg-gray-800 p-2 md:p-0'>
               <div class='p-3 rounded-full bg-purple-600 bg-opacity-75'>
                 <svg
                   class='h-8 w-8 text-white'
