@@ -5,6 +5,14 @@ const axios = require("axios");
 const Employee = require("../model/Employee");
 const URL = "http://127.0.0.1:5000";
 
+exports.getMe = asyncHandler(async (req, res, next) => {
+  const user = req.user;
+  if (!user) {
+    return next(new ErrorResponse("No User", 400));
+  }
+  res.status(200).json({ success: true, data: user });
+});
+
 exports.addJob = asyncHandler(async (req, res, next) => {
   const { title, description, salary, location, minQualification, skills } =
     req.body;
@@ -31,10 +39,13 @@ exports.addJob = asyncHandler(async (req, res, next) => {
   data = {
     description,
     skills,
-    location
-  }
-  const response = await axios.post("http://127.0.0.1:5000/recommend_resume",data)
-  jobData = {...jobData, selectedEmployee: response.data};
+    location,
+  };
+  const response = await axios.post(
+    "http://127.0.0.1:5000/recommend_resume",
+    data
+  );
+  jobData = { ...jobData, selectedEmployee: response.data };
   const job = await Job.create(jobData);
   if (!job) {
     return next(new ErrorResponse("Job not created", 400));
