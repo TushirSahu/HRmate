@@ -20,17 +20,13 @@ const JobSchema = new mongoose.Schema({
   minQualification: {
     type: String,
     enum: ["Bachelors", "Masters", "PhD"],
-    required: true,
   },
-  skills: [
-    {
-      type: String,
-    },
-  ],
+  skills: {
+    type: String,
+  },
   selectedEmployee: [
     {
-      type: mongoose.Schema.ObjectId,
-      ref: "Employee",
+      type: Object,
     },
   ],
   createdBy: {

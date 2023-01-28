@@ -28,8 +28,13 @@ exports.addJob = asyncHandler(async (req, res, next) => {
     skills,
   };
   jobData.createdBy = hr._id;
-  // fetch employees from flask
-  // jobData.selectedEmployee = [];
+  data = {
+    description,
+    skills,
+    location
+  }
+  const response = await axios.post("http://127.0.0.1:5000/recommend_resume",data)
+  jobData = {...jobData, selectedEmployee: response.data};
   const job = await Job.create(jobData);
   if (!job) {
     return next(new ErrorResponse("Job not created", 400));
