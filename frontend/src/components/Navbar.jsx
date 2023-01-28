@@ -8,12 +8,12 @@ import Box from "@mui/material/Box";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import { AuthProvider } from "../context/AuthContext";
-export const Navbar = () => {
+export const Navbar = ({ styles }) => {
   const { theme, toggleTheme } = useContext(themeProvider);
   const { user } = useContext(AuthProvider);
-  const [hamburger, setHamburger] = useState(true);
   return (
     <nav
+      style={styles}
       className='
           flex flex-wrap
           items-center
@@ -34,48 +34,20 @@ export const Navbar = () => {
           <img src={logo} alt='' className='' />
         </Link>
       </div>
-
-      <svg
-        xmlns='http://www.w3.org/2000/svg'
-        id='menu-button'
-        className='h-6 w-6 cursor-pointer md:hidden block'
-        fill='none'
-        viewBox='0 0 24 24'
-        stroke='currentColor'
-        onClick={() => {
-          setHamburger(!hamburger);
-        }}
-      >
-        <path
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          strokeWidth='2'
-          d='M4 6h16M4 12h16M4 18h16'
-        />
-      </svg>
-
       <div
-        className={`${
-          hamburger && "hidden"
-        } w-full p-4 md:flex md:items-center md:w-auto bg-white dark:bg-[#121212] z-10`}
+        className={`w-full p-4 md:flex md:items-center md:w-auto bg-white dark:bg-[#121212] z-10`}
         id='menu'
       >
         <ul
           className='
               pt-4
               text-base text-gray-700
+              hidden
               md:flex
               md:justify-between 
-              md:pt-0'
+              md:pt-0
+              '
         >
-          <li>
-            <Link
-              className='md:p-4 py-2 block hover:text-purple-400 dark:text-white '
-              to='/'
-            >
-              Home
-            </Link>
-          </li>
           <Link
             to='/signup'
             className='md:p-4 py-2 block hover:text-purple-400 text-purple-500'
