@@ -49,7 +49,7 @@ export const Navbar = ({ styles }) => {
               '
         >
           <Link
-            to='/dashboard'
+            to={user.isAuthenticated == true ? "/dashboard" : "/login"}
             className='md:p-4 py-2 block hover:text-purple-400 text-purple-500'
           >
             {user.isAuthenticated == true ? "My Dashboard" : "Get Started"}
