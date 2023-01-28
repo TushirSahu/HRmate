@@ -1,10 +1,25 @@
-import React, { useContext } from "react";
-import { Link, Navigate } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useContext } from "react";
 import Navbar from "../components/Navbar";
 import ProtectedRoute from "../components/ProtectedRoute";
-import profileBG from "../assets/profile-bg.webp";
+import { AuthProvider } from "../context/AuthContext";
 
 const Profile = () => {
+  const [userData, setUserData] = useState({});
+  const { user } = useContext(AuthProvider);
+  const getProfile = async () => {
+    const response = await axios.get("http://localhost:8000/api/v1/getMe", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    setUserData(response.data.data);
+  };
+  useEffect(() => {
+    getProfile();
+  }, []);
+
   return (
     <>
       <ProtectedRoute>

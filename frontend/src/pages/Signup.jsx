@@ -8,7 +8,7 @@ export default function Signup() {
   const { user, setUser } = useContext(AuthProvider);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
@@ -17,7 +17,7 @@ export default function Signup() {
     try {
       const res = await axios.post("http://localhost:8000/api/v1/signup", {
         email,
-        username,
+        name,
         password,
       });
       setUser({
@@ -75,14 +75,14 @@ export default function Signup() {
                   <div className='mt-8'>
                     <div className='flex justify-between items-center'>
                       <div className='text-sm font-bold text-gray-700 tracking-wide dark:text-white'>
-                        Username
+                        Name
                       </div>
                     </div>
                     <input
                       className='w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-purple-500 dark:bg-[#121212] dark:text-white'
                       type=''
-                      placeholder='Enter your username'
-                      onChange={(e) => setUsername(e.target.value)}
+                      placeholder='Enter your name'
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </div>
                   <div className='mt-8'>

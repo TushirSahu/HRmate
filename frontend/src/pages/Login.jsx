@@ -79,7 +79,7 @@ const LoginPage = () => {
                   </div>
                   <input
                     className='w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-purple-500 dark:bg-[#121212] dark:text-white'
-                    type=''
+                    type='password'
                     placeholder='Enter your password'
                     onChange={(e) => {
                       setPassword(e.target.value);
