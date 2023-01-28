@@ -17,6 +17,7 @@ import {
   FormProvider,
   useFormContext,
 } from "react-hook-form";
+import toast, { Toaster } from 'react-hot-toast';
 
 function getSteps() {  
   return [
@@ -144,16 +145,20 @@ function getStepContent(step) {
 }
 
 const AddDetails = () => {
-    const methods = useForm({
-      defaultValues: {
-        title: "",
-        description: "",
-        salary: "",
-        location: "",
-        skills: "",
-        minQualification: "",
-      },
-    });
+  const methods = useForm({
+    defaultValues: {
+      title: "",
+      description: "",
+      salary: "",
+      location: "",
+      skills: "",
+      minQualification: "",
+    },
+  });
+
+  const showAlert = () => {
+    toast.error('Please fill all the fields');
+  }
 
   const { theme, toggleTheme } = useContext(themeProvider);
   const [activeStep, setActiveStep] = useState(0);
@@ -163,9 +168,22 @@ const AddDetails = () => {
     },
   })
   const steps = getSteps();
+  console.log(activeStep);
 
   const handleNext = () => {
     console.log(methods.getValues());
+    if(activeStep == 0){
+      if(!methods.getValues().title || !methods.getValues().description){
+        showAlert();
+        return;
+      }
+    }
+    else if(activeStep == 1){
+      if(!methods.getValues().salary || !methods.getValues().location || !methods.getValues().minQualification){
+        showAlert();
+        return;
+      }
+    }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -175,6 +193,7 @@ const AddDetails = () => {
 
   return (
     <ThemeProvider theme={bgtheme}>
+    <Toaster />
     <div>
       <Navbar/>
       <div className="md:px-48 px-8 py-8">
@@ -183,9 +202,6 @@ const AddDetails = () => {
             return (
               <Step 
                 key={index}
-                sx={{
-                  
-                }}
               >
                 <StepLabel>{step}</StepLabel>
               </Step>
@@ -194,9 +210,35 @@ const AddDetails = () => {
         </Stepper>
       </div>
       {activeStep === steps.length ? (
-        <Typography variant="h3" align="center">
-          Thank You
-        </Typography>
+        <>
+          <Typography 
+            variant="h3" 
+            align="center"
+            sx={{
+              marginTop: "3rem",
+            }}
+          >
+            <p className="dark:text-white">Submit Details</p>
+          </Typography>
+          <Typography 
+            variant="h5" 
+            align="center"
+            sx={{
+              marginTop: "0.5rem",
+            }}
+          >
+            <p className="dark:text-white">All steps completed - you&apos;re finished</p>
+          </Typography>
+          <div className="flex justify-center items-center py-4">
+            <Button 
+              variant="contained"
+              color="primary"
+              className="dark:bg-purple-700 dark:text-white"
+            >
+              Submit Details
+            </Button>
+          </div>
+        </>
       ) : (
         <>
           <FormProvider {...methods}>
@@ -208,7 +250,7 @@ const AddDetails = () => {
 
               <div className="flex justify-center 
                 items-center md:flex-row md:justify-between
-                space-x-4 md:space-x-0 py-4"
+                space-x-24 md:space-x-0 py-4"
               >
                 <Button
                   disabled={activeStep === 0}
@@ -216,13 +258,13 @@ const AddDetails = () => {
                   onClick={handleBack}
                   className="mt-4"
                 >
-                  Back
+                  Previous
                 </Button>
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={handleNext}
-                  className="mt-4"
+                  className="mt-4 dark:bg-purple-700 dark:text-white"
                 >
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
                 </Button>

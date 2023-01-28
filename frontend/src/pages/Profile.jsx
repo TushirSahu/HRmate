@@ -7,7 +7,7 @@ import profileBG from "../assets/profile-bg.webp";
 const Profile = () => {
   return (
     <>
-      {/* <ProtectedRoute> */}
+      <ProtectedRoute>
         <Navbar />
         <main class='relative profile-page'>
           <section className='block h-500-px'>
@@ -164,7 +164,7 @@ const Profile = () => {
             </footer>
           </section>
         </main>
-      {/* </ProtectedRoute> */}
+      </ProtectedRoute>
     </>
   );
 };

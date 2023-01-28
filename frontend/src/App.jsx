@@ -6,7 +6,6 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import AddDetails from "./pages/AddDetails";
-import Test from "./pages/Test";
 import { Dashboard } from "./pages/Dashboard";
 
 function App() {
@@ -18,6 +17,7 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/add-details' element={<AddDetails />} />
+        <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/test' element={<Dashboard />} />
       </Routes>
     </div>
