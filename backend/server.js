@@ -21,7 +21,7 @@ app.use("/api/v1/list", listRoutes)
 app.use(errorHandler);
 
 app.get("/", (req, res) => {
-    res.send("Hello Tushir");
+    res.send("Hello Tushir ki mummy");
 });
 
 process.on("unhandledRejection", (err, promise) => {

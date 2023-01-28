@@ -1,17 +1,11 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
 const UserSchema = new mongoose.Schema({
-  username: {
+  name: {
     type: String,
     required: [true, "Please add a name"],
-    unique: true,
-  },
-  fname: {
-    type: String,
-  },
-  lname: {
-    type: String,
   },
   email: {
     type: String,
@@ -28,23 +22,6 @@ const UserSchema = new mongoose.Schema({
     minlength: 6,
     select: false,
   },
-  likedGenre: [
-    {
-      type: String,
-    },
-  ],
-  followers: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: "user",
-    },
-  ],
-  following: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: "user",
-    },
-  ],
   joinedAt: {
     type: Date,
     default: Date.now,
