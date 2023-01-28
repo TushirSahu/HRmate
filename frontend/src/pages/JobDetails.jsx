@@ -1,8 +1,16 @@
+import axios from "axios";
 import React from "react";
+import { useParams } from "react-router-dom";
 import EmployeeCard from "../components/EmployeeCard";
 import { Layout } from "../components/layout";
 
 export const JobDetails = () => {
+  const { id } = useParams();
+  const getJob = async () => {
+    const response = await axios.get(
+      `http://localhost:8000/api/v1/${id}/getJob`
+    );
+  };
   return (
     <Layout>
       <div class='flex flex-col gap-4 h-full items-center justify-center rounded-lg mb-4 p-4 dark:bg-[#121212] border-[0.5px] dark:border-gray-800'>
@@ -114,8 +122,10 @@ export const JobDetails = () => {
               })}
             </div>
           </div>
-          <div className="flex flex-col justify-start mt-12">
-            <h1 className="text-2xl mb-4 font-medium dark:text-white">Recommended Candidates</h1>
+          <div className='flex flex-col justify-start mt-12'>
+            <h1 className='text-2xl mb-4 font-medium dark:text-white'>
+              Recommended Candidates
+            </h1>
             <EmployeeCard />
             <EmployeeCard />
           </div>

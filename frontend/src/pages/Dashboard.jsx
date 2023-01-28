@@ -1,9 +1,28 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Layout } from "../components/layout";
 import Navbar from "../components/Navbar";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 export const Dashboard = () => {
+  const [jobs, setJobs] = useState([]);
+  const getjobs = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/api/v1/getJobs", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      setJobs(response.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getjobs();
+  }, []);
+  console.log(jobs);
   return (
     <ProtectedRoute>
       <Layout>
@@ -46,133 +65,85 @@ export const Dashboard = () => {
 
               <div class='mx-5'>
                 <h4 class='text-2xl font-semibold text-gray-700 dark:text-white'>
-                  8,282
+                  {jobs.length}
                 </h4>
-                <div class='text-gray-500'>New Users</div>
+                <div class='text-gray-500'>Active Jobs</div>
               </div>
             </div>
             <div class='flex items-center justify-center rounded-lg h-24 col-span-2 bg-gray-50 dark:bg-gray-800'>
-              <p class='text-2xl text-gray-400 dark:text-gray-500'>+</p>
+              <p class='text-2xl text-purple-700 dark:text-gray-500'>
+                <Link to='/add-details'>+ Add Job</Link>
+              </p>
             </div>
           </div>
           <h2 class='font-bold text-xl p-2 dark:text-white my-4 mt-12'>
             Your listed jobs
           </h2>
           <div class='flex flex-col gap-4 h-full items-center justify-center rounded-lg mb-4 p-4 dark:bg-[#121212] border-[0.5px] dark:border-gray-800'>
-            <div class='dark:bg-gray-800 bg-gray-50  w-full flex flex-col sm:flex-row gap-3 sm:items-center justify-between px-5 py-4 rounded-md'>
-              <div>
-                <span class='text-purple-800 text-sm dark:text-[#9CA3AF]'>
-                  Engineering
-                </span>
-                <h3 class='font-bold mt-px dark:text-white'>
-                  Senior Full Stack Backend Engineer
-                </h3>
-                <div class='flex items-center gap-3 mt-2'>
-                  <span class='bg-purple-100 text-purple-700 rounded-full px-3 py-1 text-sm'>
-                    Full-time
+            {jobs.length == 0 && (
+              <span className='text-lg text-gray-400'>
+                You Don't have any jobs.
+              </span>
+            )}
+            {jobs.map((job) => (
+              <div class='dark:bg-gray-800 bg-gray-50  w-full flex flex-col sm:flex-row gap-3 sm:items-center justify-between px-5 py-4 rounded-md'>
+                <div>
+                  <span class='text-purple-800 text-sm dark:text-[#9CA3AF]'>
+                    {job.skills.trim().split(",").join(" ")}
                   </span>
-                  <span class='text-slate-600 text-sm flex gap-1 items-center dark:text-[#9CA3AF]'>
-                    {" "}
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      class='h-4 w-4'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      stroke='currentColor'
-                      stroke-width='2'
-                    >
-                      <path
-                        stroke-linecap='round'
-                        stroke-linejoin='round'
-                        d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'
-                      />
-                      <path
-                        stroke-linecap='round'
-                        stroke-linejoin='round'
-                        d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'
-                      />
-                    </svg>{" "}
-                    Remote, UK
-                  </span>
+                  <h3 class='font-bold mt-px dark:text-white'>{job.title}</h3>
+                  <div class='flex items-center gap-3 mt-2'>
+                    <span class='bg-purple-100 text-purple-700 rounded-full px-3 py-1 text-sm'>
+                      Rs. {job.salary} CTC
+                    </span>
+                    <span class='text-slate-600 text-sm flex gap-1 items-center dark:text-[#9CA3AF]'>
+                      {" "}
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        class='h-4 w-4'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        stroke='currentColor'
+                        stroke-width='2'
+                      >
+                        <path
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'
+                        />
+                        <path
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'
+                        />
+                      </svg>{" "}
+                      {job.location}
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <Link to={`/job/${job._id}`}>
+                    <button class='bg-purple-900 text-white font-medium px-4 py-2 rounded-md flex gap-1 items-center'>
+                      View this job
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        class='h-4 w-4'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        stroke='currentColor'
+                        stroke-width='2'
+                      >
+                        <path
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          d='M13 7l5 5m0 0l-5 5m5-5H6'
+                        />
+                      </svg>
+                    </button>
+                  </Link>
                 </div>
               </div>
-              <div>
-                <button class='bg-purple-900 text-white font-medium px-4 py-2 rounded-md flex gap-1 items-center'>
-                  View this job
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    class='h-4 w-4'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                    stroke-width='2'
-                  >
-                    <path
-                      stroke-linecap='round'
-                      stroke-linejoin='round'
-                      d='M13 7l5 5m0 0l-5 5m5-5H6'
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div class='dark:bg-gray-800 bg-gray-50  w-full flex flex-col sm:flex-row gap-3 sm:items-center justify-between px-5 py-4 rounded-md'>
-              <div>
-                <span class='text-purple-800 text-sm dark:text-[#9CA3AF]'>
-                  Engineering
-                </span>
-                <h3 class='font-bold mt-px dark:text-white'>
-                  Senior Full Stack Backend Engineer
-                </h3>
-                <div class='flex items-center gap-3 mt-2'>
-                  <span class='bg-purple-100 text-purple-700 rounded-full px-3 py-1 text-sm'>
-                    Full-time
-                  </span>
-                  <span class='text-slate-600 text-sm flex gap-1 items-center dark:text-[#9CA3AF]'>
-                    {" "}
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      class='h-4 w-4'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      stroke='currentColor'
-                      stroke-width='2'
-                    >
-                      <path
-                        stroke-linecap='round'
-                        stroke-linejoin='round'
-                        d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'
-                      />
-                      <path
-                        stroke-linecap='round'
-                        stroke-linejoin='round'
-                        d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'
-                      />
-                    </svg>{" "}
-                    Remote, UK
-                  </span>
-                </div>
-              </div>
-              <div>
-                <button class='bg-purple-900 text-white font-medium px-4 py-2 rounded-md flex gap-1 items-center'>
-                  View this job
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    class='h-4 w-4'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                    stroke-width='2'
-                  >
-                    <path
-                      stroke-linecap='round'
-                      stroke-linejoin='round'
-                      d='M13 7l5 5m0 0l-5 5m5-5H6'
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </Layout>
