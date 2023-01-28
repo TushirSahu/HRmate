@@ -1,6 +1,7 @@
 import React from "react";
 import { Layout } from "../components/layout";
 import Navbar from "../components/Navbar";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 export const Dashboard = () => {
   return (

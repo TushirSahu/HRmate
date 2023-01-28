@@ -25,7 +25,7 @@ const LoginPage = () => {
       window.localStorage.setItem("token", response.data.token);
       console.log(response.data);
       setLoading(false);
-      navigate("/profile");
+      navigate("/dashboard");
     } catch (error) {
       setLoading(false);
       console.log(error);

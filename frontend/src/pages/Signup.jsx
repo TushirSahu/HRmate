@@ -27,7 +27,7 @@ export default function Signup() {
       });
       localStorage.setItem("token", res.data.token);
       setLoading(false);
-      navigate("/profile");
+      navigate("/dashboard");
     } catch (error) {
       setLoading(false);
       setUser({
