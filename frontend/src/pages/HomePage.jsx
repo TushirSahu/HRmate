@@ -5,27 +5,6 @@ import axios from "axios";
 import { motion } from "framer-motion";
 
 export default function HomePage() {
-  const [list, setList] = useState([]);
-
-  const fetchHandler = async () => {
-    try {
-      const body = {
-        genres: ["Horror"],
-      };
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzY2MxNjM3YmIzODg0Y2IwODczMmQ0YSIsImlhdCI6MTY3NDM2OTkwMiwiZXhwIjoxNjc2MDk3OTAyfQ.Prwe4UnFLmXJMeO2G2br5MWVcdW15CqnUF44RRdYuKc";
-      const results = await axios.post(
-        "http://localhost:8000/api/v1/list/generate",
-        body,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      setList(results.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <div>
@@ -71,9 +50,9 @@ export default function HomePage() {
                 className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4 dark:text-white"
                 data-aos="zoom-y-out"
               >
-                Make your watch list{" "}
+                Filter Candidates For{" "}
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-400">
-                  wonderful
+                  Job
                 </span>
               </h1>
               <div className="max-w-3xl mx-auto">
@@ -82,9 +61,10 @@ export default function HomePage() {
                   data-aos="zoom-y-out"
                   data-aos-delay="150"
                 >
-                  Cinematch is a movie/series recommendation platform uses a
-                  cutting-edge machine learning model to personalize movie
-                  suggestions based on your interests.
+                  AI-based candidate filtering uses machine learning to analyze resumes 
+                  and identify the best fit for a job. This process can include analyzing 
+                  text data, natural language processing and conducting initial interviews, 
+                  providing efficient and unbiased results.
                 </p>
                 <div
                   className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center"

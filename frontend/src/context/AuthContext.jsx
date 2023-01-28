@@ -6,7 +6,7 @@ const AuthContextProvide = (props) => {
   const [user, setUser] = useState({
     user: null,
     token: null,
-    isAuthenticated: false,
+    isAuthenticated: null,
   });
 
   const validateToken = async () => {
@@ -32,6 +32,11 @@ const AuthContextProvide = (props) => {
         });
         
       } catch (error) {
+        setUser({
+          user: null,
+          token: null,
+          isAuthenticated: false,
+        })
         console.log(error);
       }
     }
