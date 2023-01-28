@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Navbar from "../components/Navbar";
+import { themeProvider } from "../context/themeContext";
 import { Stepper, Step, StepLabel, Button, Typography,
   TextField,
   RadioGroup,
   FormControlLabel,
   Radio,
   FormLabel,
+  ThemeProvider,
+  createTheme,
 } from "@mui/material";
 
 import {
@@ -15,7 +18,7 @@ import {
   useFormContext,
 } from "react-hook-form";
 
-function getSteps() {
+function getSteps() {  
   return [
     "Basic information",
     "Personal Information",
@@ -30,14 +33,14 @@ const BasicForm = () => {
         control={control}
         name="title"
         render={({ field }) => (
-          <TextField
-            id="title"
-            label="Title"
-            variant="outlined"
-            placeholder="Enter Title for your job"
-            fullWidth
-            margin="normal"
-            {...field}
+          <input
+              id="title"
+              name="title"
+              spellCheck="false"
+              placeholder="Enter Title for your job"
+              className="w-full px-3 py-5 mb-4 text-gray-700 border-2 rounded-md
+                focus:outline-none dark:bg-gray-700 dark:border-none dark:text-white"
+              {...field}
           />
         )}
       />
@@ -50,8 +53,8 @@ const BasicForm = () => {
               name="description"
               spellCheck="false"
               placeholder="Enter a description for your job"
-              className="w-full px-3 py-2 h-72 text-gray-700 border-2 rounded-lg 
-                focus:outline-none"
+              className="w-full px-3 py-2 h-72 text-gray-700 border-2 rounded-md 
+                focus:outline-none dark:bg-gray-700 dark:border-none dark:text-white"
               {...field}
           />   
         )}
@@ -68,14 +71,14 @@ const PersonalForm = () => {
         control={control}
         name="salary"
         render={({ field }) => (
-          <TextField
-            id="salary"
-            label="Salary"
-            variant="outlined"
-            placeholder="Enter Your Salary"
-            fullWidth
-            margin="normal"
-            {...field}
+          <input
+              id="salary"
+              name="salary"
+              spellCheck="false"
+              placeholder="Enter Salary for your job"
+              className="w-full px-3 py-5 mb-4 text-gray-700 border-2 rounded-md
+                focus:outline-none dark:bg-gray-700 dark:border-none dark:text-white"
+              {...field}
           />
         )}
       />
@@ -83,22 +86,22 @@ const PersonalForm = () => {
         control={control}
         name="location"
         render={({ field }) => (
-          <TextField
+        <input
             id="location"
-            label="Location"
-            variant="outlined"
+            name="location"
+            spellCheck="false"
             placeholder="Enter Your Location"
-            fullWidth
-            margin="normal"
+            className="w-full px-3 py-5 mb-4 text-gray-700 border-2 rounded-md
+              focus:outline-none dark:bg-gray-700 dark:border-none dark:text-white"
             {...field}
-          />
+        />
         )}
       />   
       <Controller
         control={control}
         name="minQualification"
         render={({ field }) => (
-          <div className="py-4">
+          <div className="py-2">
             <FormLabel>
                 Minimum Qualification
             </FormLabel>
@@ -107,16 +110,19 @@ const PersonalForm = () => {
                     value="Bachelors"
                     control={<Radio />}
                     label="Bachelors"
+                    className="dark:text-white"
                 />
                 <FormControlLabel
                     value="Masters"
                     control={<Radio />}
                     label="Masters"
+                    className="dark:text-white"
                 />
                 <FormControlLabel
                     value="Phd"
                     control={<Radio />}
                     label="Phd"
+                    className="dark:text-white"
                 />
             </RadioGroup>   
         </div>
@@ -149,7 +155,13 @@ const AddDetails = () => {
       },
     });
 
+  const { theme, toggleTheme } = useContext(themeProvider);
   const [activeStep, setActiveStep] = useState(0);
+  const bgtheme = createTheme({
+    palette: {
+      mode: theme,
+    },
+  })
   const steps = getSteps();
 
   const handleNext = () => {
@@ -162,13 +174,19 @@ const AddDetails = () => {
   };
 
   return (
+    <ThemeProvider theme={bgtheme}>
     <div>
       <Navbar/>
-      <div className="md:px-48 py-12">
+      <div className="md:px-48 px-8 py-8">
         <Stepper alternativeLabel activeStep={activeStep}>
           {steps.map((step, index) => {
             return (
-              <Step key={index}>
+              <Step 
+                key={index}
+                sx={{
+                  
+                }}
+              >
                 <StepLabel>{step}</StepLabel>
               </Step>
             )
@@ -184,14 +202,14 @@ const AddDetails = () => {
           <FormProvider {...methods}>
             <form 
               onSubmit={methods.handleSubmit((data) => console.log(data))}
-              className="md:px-48 py-12 px-16"
+              className="md:px-48 py-8 px-8"
             >
               {getStepContent(activeStep)}
 
               <div className="flex justify-center 
                 items-center md:flex-row md:justify-between
                 space-x-4 md:space-x-0 py-4"
-                >
+              >
                 <Button
                   disabled={activeStep === 0}
                   variant="outlined"
@@ -214,6 +232,7 @@ const AddDetails = () => {
         </>
       )}
     </div>
+    </ThemeProvider>
   );
 }
 
