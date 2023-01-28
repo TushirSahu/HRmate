@@ -9,6 +9,8 @@ import { Stepper, Step, StepLabel, Button, Typography,
   FormLabel,
   ThemeProvider,
   createTheme,
+  Autocomplete,
+  Stack
 } from "@mui/material";
 
 import {
@@ -26,6 +28,28 @@ function getSteps() {
     "Personal Information",
   ];
 }
+
+const skills = [
+  'Python','Java','C++','C','C#','JavaScript','PHP','SQL','Swift','Go','Ruby',
+  'Perl','R','Matlab','Scala','Kotlin','Groovy','Haskell','Rust','Erlang',
+  'Clojure','Dart','Objective-C','Visual Basic','Delphi','Assembly','devops',
+  'linux','docker','kubernetes','aws','azure','gcp','cloud','git','svn','mercurial',
+  'trello','jira','confluence','flask',
+  'django','spring','spring boot','spring mvc','spring security','spring data',
+  'spring cloud','spring batch','spring integration','spring webflow','spring web services',
+  'spring amqp','spring jms','spring rest','spring rest docs','dsa','data structures',
+  'algorithms','design patterns','oop','object oriented programming','functional programming',
+  'fp','react','angular','vue','node','express','mongodb','mysql','postgresql',
+  'redis','elasticsearch','kafka','rabbitmq','graphql','http','tcp',
+  'udp','sockets','rest','soap','cyber security','ethical hacking','network security',
+  'web security','application security','cloud security','mobile security','iot security',
+  'blockchain','big data','data science','machine learning','artificial intelligence','ai',
+  'deep learning','nlp','natural language processing','computer vision','cv',
+  'image processing','data mining','data warehousing','data visualization','data analytics',
+  'data engineering','data architecture','data modeling','data governance','data lakes',
+  'data marts','data cubes','data warehouses','data streaming','data pipelines',
+  'data wrangling','data cleansing',
+]
 
 const BasicForm = () => {
   const { control } = useFormContext();
@@ -67,6 +91,12 @@ const BasicForm = () => {
 
 const PersonalForm = () => {
   const { control } = useFormContext();
+  const [data, setData] = useState([]);
+
+  // set useform skills field value
+  const { setValue } = useFormContext();
+  setValue("skills", data);
+
   return (
     <>
       <Controller
@@ -98,6 +128,32 @@ const PersonalForm = () => {
             {...field}
         />
         )}
+      />
+      <Controller
+          control={control}
+          name="skills"
+          render={({ field }) => (
+            <Stack spacing={2} sx={{
+              width: '100%',
+             }}>
+              <Autocomplete
+                value={data}
+                onChange={(event, newValue) => {
+                  setData(newValue);
+                }}
+                multiple = {true}
+                id="tags-standard"
+                options={skills}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Skills"
+                    placeholder="Skills"
+                  />
+                )}
+              />
+            </Stack>
+          )}
       />   
       <Controller
         control={control}
@@ -152,7 +208,7 @@ const AddDetails = () => {
       description: "",
       salary: "",
       location: "",
-      skills: "",
+      skills: [],
       minQualification: "",
     },
   });
@@ -200,9 +256,7 @@ const AddDetails = () => {
         <Stepper alternativeLabel activeStep={activeStep}>
           {steps.map((step, index) => {
             return (
-              <Step 
-                key={index}
-              >
+              <Step key={index}>
                 <StepLabel>{step}</StepLabel>
               </Step>
             )

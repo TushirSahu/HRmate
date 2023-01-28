@@ -35,7 +35,7 @@ export const Navbar = ({ styles }) => {
         </Link>
       </div>
       <div
-        className={`w-full p-4 md:flex md:items-center md:w-auto bg-white dark:bg-[#121212] z-10`}
+        className={`w-full p-4 md:flex md:items-center md:w-auto dark:bg-[#121212] z-10`}
         id='menu'
       >
         <ul
