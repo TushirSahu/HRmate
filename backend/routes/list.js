@@ -9,7 +9,6 @@ const {
   getJob,
   saveJobList,
   addEmployee,
-  saveJobList,
   getMe
 } = require("../controllers/list.controllers.js");
 
