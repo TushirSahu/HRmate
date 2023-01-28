@@ -1,9 +1,10 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 export const Dashboard = () => {
   return (
-    <>
+    <ProtectedRoute>
       <Navbar
         styles={{
           position: "fixed",
@@ -358,6 +359,6 @@ export const Dashboard = () => {
           </div>
         </div>
       </div>
-    </>
+    </ProtectedRoute>
   );
 };

@@ -18,6 +18,7 @@ import {
   useFormContext,
 } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
+import ProtectedRoute from "../components/ProtectedRoute";
 
 function getSteps() {  
   return [
@@ -168,7 +169,6 @@ const AddDetails = () => {
     },
   })
   const steps = getSteps();
-  console.log(activeStep);
 
   const handleNext = () => {
     console.log(methods.getValues());
@@ -194,7 +194,7 @@ const AddDetails = () => {
   return (
     <ThemeProvider theme={bgtheme}>
     <Toaster />
-    <div>
+    <ProtectedRoute>
       <Navbar/>
       <div className="md:px-48 px-8 py-8">
         <Stepper alternativeLabel activeStep={activeStep}>
@@ -273,7 +273,7 @@ const AddDetails = () => {
           </FormProvider>  
         </>
       )}
-    </div>
+    </ProtectedRoute>
     </ThemeProvider>
   );
 }
