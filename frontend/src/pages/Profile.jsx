@@ -6,21 +6,8 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import { AuthProvider } from "../context/AuthContext";
 
 const Profile = () => {
-  const [userData, setUserData] = useState({});
   const { user } = useContext(AuthProvider);
-  const getProfile = async () => {
-    const response = await axios.get("http://localhost:8000/api/v1/me", {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
-    setUserData(response.data.data);
-  };
-  console.log(userData);
-
-  useEffect(() => {
-    getProfile();
-  }, []);
+  const userData = user.user;
 
   return (
     <>
@@ -88,11 +75,11 @@ const Profile = () => {
                       <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
                       Solution Manager - Creative Tim Officer
                     </div>
-                    <div className="mb-2 text-blueGray-600">
+                    <div className="mt-8 text-blueGray-600">
                       <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
                       Mail: {userData && userData.email}
                     </div>
-                    <div className="mb-2 text-blueGray-600 mt-10">
+                    <div className="mb-2 text-blueGray-600">
                       <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
                       Joined {userData && userData.joinedAt.slice(0, 10)}
                     </div>
