@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import EmployeeCard from "../components/EmployeeCard";
 import { Layout } from "../components/layout";
+import { motion } from 'framer-motion';
 
 export const JobDetails = () => {
   const { id } = useParams();
@@ -29,6 +30,11 @@ export const JobDetails = () => {
     getJob();
   }, []);
   return (
+    <motion.div
+      initial={{ opacity: 0, x: -100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 100, transition: { duration: 0.5 } }}
+    >
     <Layout>
       <div className='flex flex-col gap-4 h-full items-center justify-center rounded-lg mb-4 p-4 dark:bg-[#121212] border-[0.5px] dark:border-gray-800'>
         <div className='dark:bg-gray-800 bg-gray-50  w-full flex flex-col gap-3 justify-between px-5 py-4 rounded-md'>
@@ -125,5 +131,6 @@ export const JobDetails = () => {
         </div>
       </div>
     </Layout>
+    </motion.div>
   );
 };

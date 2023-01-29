@@ -74,7 +74,7 @@ const EmployeeCard = ({ candidate, job_id, getJob }) => {
               onClick={() => {
                 handleInterview();
               }}
-              className={`text-indigo-600 hover:text-indigo-900 ${
+              className={`text-indigo-600 hover:text-indigo-900 cursor-pointer ${
                 interview && "opacity-50"
               }`}
             >

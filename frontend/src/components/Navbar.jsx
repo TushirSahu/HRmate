@@ -14,7 +14,7 @@ export const Navbar = ({ styles }) => {
   return (
     <nav
       style={styles}
-      className='
+      className="
           flex flex-wrap
           items-center
           justify-between
@@ -27,30 +27,33 @@ export const Navbar = ({ styles }) => {
           dark:bg-[#121212]
           dark:text-gray-200
           h-12
-        '
+        "
     >
       <div>
-        <Link to='/'>
-          <img src={logo} alt='' className='' />
+        <Link
+          to={user.isAuthenticated == true ? "/dashboard" : "/"}
+          className="md:p-4 py-2 block hover:text-purple-400 text-purple-500"
+        >
+          <img src={logo} alt="" className="" />
         </Link>
       </div>
       <div
         className={`w-full p-4 md:flex md:items-center md:w-auto dark:bg-[#121212] z-10`}
-        id='menu'
+        id="menu"
       >
         <ul
-          className='
+          className="
               pt-4
               text-base text-gray-700
               hidden
               md:flex
               md:justify-between 
               md:pt-0
-              '
+              "
         >
           <Link
             to={user.isAuthenticated == true ? "/dashboard" : "/login"}
-            className='md:p-4 py-2 block hover:text-purple-400 text-purple-500'
+            className="md:p-4 py-2 block hover:text-purple-400 text-purple-500"
           >
             {user.isAuthenticated == true ? "My Dashboard" : "Get Started"}
           </Link>
@@ -68,7 +71,7 @@ export const Navbar = ({ styles }) => {
             >
               <IconButton
                 onClick={toggleTheme}
-                color='inherit'
+                color="inherit"
                 sx={
                   theme == "dark"
                     ? {
