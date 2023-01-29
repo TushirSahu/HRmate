@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Layout } from "../components/layout";
-import Navbar from "../components/Navbar";
 import ProtectedRoute from "../components/ProtectedRoute";
+import { motion } from 'framer-motion';
 
 export const Dashboard = () => {
   const [jobs, setJobs] = useState([]);
@@ -22,10 +22,14 @@ export const Dashboard = () => {
   useEffect(() => {
     getjobs();
   }, []);
-  console.log(jobs);
   return (
     <ProtectedRoute>
       <Layout>
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 100, transition: { duration: 0.5 } }}
+        >
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 b-4">
             <div class="flex items-center justify-center col-span-2 md:col-span-1 rounded-lg bg-gray-50 dark:bg-gray-800 p-2 md:p-0">
@@ -148,6 +152,7 @@ export const Dashboard = () => {
             ))}
           </div>
         </div>
+        </motion.div> 
       </Layout>
     </ProtectedRoute>
   );
