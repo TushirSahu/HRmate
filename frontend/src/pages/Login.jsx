@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { AuthProvider } from "../context/AuthContext";
+import toast, { Toaster } from "react-hot-toast";
 import login1 from "../assets/login.svg";
 
 const LoginPage = () => {
@@ -13,6 +14,16 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const submitHandler = async () => {
     setLoading(true);
+    const showAlert = (msg) => {
+      toast.error(msg,{
+        style: {
+          borderRadius: '10px',
+          background: '#333',
+          color: '#fff',
+        },
+        duration: 500,
+      });
+    }
     try {
       const response = await axios.post("http://localhost:8000/api/v1/login", {
         email,
@@ -28,12 +39,13 @@ const LoginPage = () => {
       setLoading(false);
       navigate("/dashboard");
     } catch (error) {
+      showAlert(error.response.data.error);
       setLoading(false);
-      console.log(error);
     }
   };
   return (
     <div>
+      <Toaster />
       <Navbar />
       <div className='lg:flex'>
         <div className='lg:w-1/2 xl:max-w-screen-sm'>
