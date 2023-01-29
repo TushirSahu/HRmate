@@ -1,4 +1,4 @@
-# HRmate-Unleashing AI's potential to revolutionize recruitment
+# HRmate-Using AI to revolutionize recruitment
 Our AI-based applicant filtering system analyses resumes, conducts preliminary interviews, and forecasts success using machine learning and natural language processing. It streamlines the hiring process for large MNCs that get a significant volume of applicants by offering effective, unbiased screening and useful insights for hiring managers.
 
 <img src="https://user-images.githubusercontent.com/103214265/215324286-8d3bc478-2dc0-4079-9223-bc81b5dbbe87.jpg" width="1000">
