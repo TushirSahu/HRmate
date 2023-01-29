@@ -20,7 +20,6 @@ export const JobDetails = () => {
       );
       setJob(response.data.data);
       setCandidates(response.data.data.selectedEmployee);
-      console.log(response.data, "response");
     } catch (err) {
       console.log(err);
     }
@@ -29,21 +28,20 @@ export const JobDetails = () => {
   useEffect(() => {
     getJob();
   }, []);
-  console.log(candidates, "candidates");
   return (
     <Layout>
-      <div class='flex flex-col gap-4 h-full items-center justify-center rounded-lg mb-4 p-4 dark:bg-[#121212] border-[0.5px] dark:border-gray-800'>
-        <div class='dark:bg-gray-800 bg-gray-50  w-full flex flex-col gap-3 justify-between px-5 py-4 rounded-md'>
+      <div className='flex flex-col gap-4 h-full items-center justify-center rounded-lg mb-4 p-4 dark:bg-[#121212] border-[0.5px] dark:border-gray-800'>
+        <div className='dark:bg-gray-800 bg-gray-50  w-full flex flex-col gap-3 justify-between px-5 py-4 rounded-md'>
           <div>
-            <h3 class='font-bold text-[2rem] mt-px dark:text-white'>
+            <h3 className='font-bold text-[2rem] mt-px dark:text-white'>
               {job && job.title}
             </h3>
-            <div class='flex items-center gap-3 mt-2'>
-              <span class='text-slate-600 text-sm flex gap-1 items-center dark:text-[#9CA3AF]'>
+            <div className='flex items-center gap-3 mt-2'>
+              <span className='text-slate-600 text-sm flex gap-1 items-center dark:text-[#9CA3AF]'>
                 {" "}
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
-                  class='h-4 w-4'
+                  className='h-4 w-4'
                   fill='none'
                   viewBox='0 0 24 24'
                   stroke='currentColor'
@@ -62,11 +60,11 @@ export const JobDetails = () => {
                 </svg>
                 {job && job.location}
               </span>
-              <span class='text-slate-600 text-sm flex gap-1 items-center dark:text-[#9CA3AF]'>
+              <span className='text-slate-600 text-sm flex gap-1 items-center dark:text-[#9CA3AF]'>
                 {" "}
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
-                  class='h-4 w-4'
+                  className='h-4 w-4'
                   fill='none'
                   viewBox='0 0 24 24'
                   stroke='currentColor'
@@ -81,11 +79,11 @@ export const JobDetails = () => {
                 Rs. {job && job.salary}
               </span>
               {/* Posted */}
-              <span class='text-slate-600 text-sm flex gap-1 items-center dark:text-[#9CA3AF]'>
+              <span className='text-slate-600 text-sm flex gap-1 items-center dark:text-[#9CA3AF]'>
                 {" "}
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
-                  class='h-4 w-4'
+                  className='h-4 w-4'
                   fill='none'
                   viewBox='0 0 24 24'
                   stroke='currentColor'
@@ -103,11 +101,11 @@ export const JobDetails = () => {
             <p className='text-lg font-light mt-8 dark:text-white'>
               {job && job.description}
             </p>
-            <div class='flex flex-wrap gap-3 mt-8'>
+            <div className='flex flex-wrap gap-3 mt-8'>
               {job &&
                 job.skills.split(",").map((item) => {
                   return (
-                    <span class='bg-purple-100 text-purple-700 rounded-full px-3 py-1 text-sm min-w-[2rem]'>
+                    <span className='bg-purple-100 text-purple-700 rounded-full px-3 py-1 text-sm min-w-[2rem]'>
                       {item}
                     </span>
                   );
@@ -121,7 +119,7 @@ export const JobDetails = () => {
 
             {candidates &&
               candidates.map((item) => {
-                return <EmployeeCard key={item._id} candidate={item} />;
+                return <EmployeeCard key={item._id} job_id={id} getJob = {getJob} candidate={item} />;
               })}
           </div>
         </div>
