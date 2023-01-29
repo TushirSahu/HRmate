@@ -1,26 +1,38 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import EmployeeCard from "../components/EmployeeCard";
 import { Layout } from "../components/layout";
 
 export const JobDetails = () => {
   const { id } = useParams();
+  const [job, setJob] = useState({});
   const getJob = async () => {
-    const response = await axios.get(
-      `http://localhost:8000/api/v1/${id}/getJob`
-    );
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/api/v1/${id}/getJob`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setJob(response.data.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
+  useEffect(() => {
+    getJob();
+  }, []);
+  console.log(job);
   return (
     <Layout>
       <div class='flex flex-col gap-4 h-full items-center justify-center rounded-lg mb-4 p-4 dark:bg-[#121212] border-[0.5px] dark:border-gray-800'>
         <div class='dark:bg-gray-800 bg-gray-50  w-full flex flex-col gap-3 justify-between px-5 py-4 rounded-md'>
           <div>
-            <span class='text-purple-800 text-sm dark:text-[#9CA3AF]'>
-              Engineering
-            </span>
             <h3 class='font-bold text-[2rem] mt-px dark:text-white'>
-              Senior Full Stack Backend Engineer
+              {job.title}
             </h3>
             <div class='flex items-center gap-3 mt-2'>
               <span class='text-slate-600 text-sm flex gap-1 items-center dark:text-[#9CA3AF]'>
@@ -44,7 +56,7 @@ export const JobDetails = () => {
                     d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'
                   />
                 </svg>
-                Remote, UK
+                {job.location}
               </span>
               <span class='text-slate-600 text-sm flex gap-1 items-center dark:text-[#9CA3AF]'>
                 {" "}
@@ -62,7 +74,7 @@ export const JobDetails = () => {
                     d='M5 13l4 4L19 7'
                   />
                 </svg>
-                £50,000 - £60,000
+                Rs. {job.salary}
               </span>
               {/* Posted */}
               <span class='text-slate-600 text-sm flex gap-1 items-center dark:text-[#9CA3AF]'>
@@ -81,25 +93,11 @@ export const JobDetails = () => {
                     d='M5 13l4 4L19 7'
                   />
                 </svg>
-                2 days ago
+                {job.createdAt && job.createdAt.slice(0, 10)}
               </span>
             </div>
             <p className='text-lg font-light mt-8 dark:text-white'>
-              We are looking for a Senior Full Stack Backend Engineer to join
-              our team. You will be responsible for building and maintaining our
-              backend services and APIs. You will be working closely with our
-              frontend team to build a great user experience. You will also be
-              working closely with our product team to build the best product
-              possible. You will be working with a team of engineers who are
-              passionate about building great products. We are a small team and
-              you will have a lot of autonomy and ownership over your work. We
-              are looking for someone who is passionate about building great
-              products and is excited to work in a fast-paced environment. You
-              will be working with a team of engineers who are passionate about
-              building great products. We are a small team and you will have a
-              lot of autonomy and ownership over your work. We are looking for
-              someone who is passionate about building great products and is
-              excited to work in a fast-paced environment.
+              {job.description}
             </p>
             <div class='flex flex-wrap gap-3 mt-8'>
               {[
