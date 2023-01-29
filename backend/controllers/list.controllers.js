@@ -44,10 +44,10 @@ exports.addJob = asyncHandler(async (req, res, next) => {
     data
   );
   let employeeList = response.data;
-  employeeList.map((employee) => {
-    employee = { ...employee, interview: false };
-  });
-  jobData = { ...jobData, selectedEmployee: employeeList };
+  for(let i=0;i<employeeList.length;i++){
+    employeeList[i].interview = false;
+  }
+  jobData.selectedEmployee = employeeList;
   const job = await Job.create(jobData);
   if (!job) {
     return next(new ErrorResponse("Job not created", 400));
