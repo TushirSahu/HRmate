@@ -16,6 +16,7 @@ import {
   createTheme,
   Autocomplete,
   Stack,
+  CircularProgress,
 } from "@mui/material";
 
 import {
@@ -321,8 +322,9 @@ const AddDetails = () => {
       minQualification: "",
     },
   });
-
+  const [loading, setLoading] = useState(false);
   const submitDetailsHandler = async (data) => {
+    setLoading(true);
     data = { ...data, skills: data.skills.join(",") };
     try {
       const response = await axios.post(
@@ -335,8 +337,10 @@ const AddDetails = () => {
           },
         }
       );
+      setLoading(false);
       navigate(`/job/${response.data.data._id}`);
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
@@ -423,10 +427,16 @@ const AddDetails = () => {
                 color='primary'
                 className='dark:bg-purple-700 dark:text-white'
                 onClick={() => submitDetailsHandler(methods.getValues())}
+                disabled={loading}
               >
                 Submit Details
               </Button>
             </div>
+            {loading && (
+              <div className='flex justify-center items-center mt-4'>
+                <CircularProgress />
+              </div>
+            )}
           </>
         ) : (
           <>
