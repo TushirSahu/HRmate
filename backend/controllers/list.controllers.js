@@ -40,7 +40,7 @@ exports.addJob = asyncHandler(async (req, res, next) => {
     location,
   };
   const response = await axios.post(
-    "http://127.0.0.1:5000/recommend_resume",
+    "https://flask-api-resume-1.onrender.com/recommend_resume/recommend_resume",
     data
   );
   let employeeList = response.data;
@@ -97,7 +97,9 @@ exports.saveJobList = asyncHandler(async (req, res, next) => {
 });
 
 exports.getApplicants = asyncHandler(async (req, res, next) => {
-  const response = await axios.get("http://127.0.0.1:5000/applicants");
+  const response = await axios.get(
+    "https://flask-api-resume-1.onrender.com/recommend_resume/applicants"
+  );
   const applicants = response.data;
   res.status(200).json({ success: true, data: applicants });
 });
