@@ -8,13 +8,15 @@ const {
   getJobs,
   getJob,
   saveJobList,
-  getMe
+  getMe,
+  getApplicants
 } = require("../controllers/list.controllers.js");
 
 routes.post("/addJob", protect, addJob);
 routes.get("/getJobs", protect, getJobs);
 routes.get("/:id/getJob", protect, getJob);
 routes.post("/:id/saveJobList", protect, saveJobList);
+routes.get("/getApplicants", protect, getApplicants);
 routes.get("/me",protect,getMe)
 
 

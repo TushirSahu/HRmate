@@ -2,8 +2,6 @@ const Job = require("../model/Job");
 const ErrorResponse = require("../middleware/error");
 const asyncHandler = require("../middleware/asyncHandler");
 const axios = require("axios");
-const Employee = require("../model/Employee");
-const URL = "http://127.0.0.1:5000";
 
 exports.getMe = asyncHandler(async (req, res, next) => {
   const user = req.user;
@@ -74,41 +72,6 @@ exports.getJob = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: job });
 });
 
-// // job id in params
-// exports.selectEmployee = asyncHandler(async (req, res, next) => {
-//   const { employeeId } = req.body;
-//   const job = await Job.findById(req.params.id);
-//   if (!job) {
-//     return next(new ErrorResponse("No job found", 404));
-//   }
-//   const employee = await Employee.findById(employeeId);
-//   if (!employee) {
-//     return next(new ErrorResponse("No employee found", 404));
-//   }
-//   if (employee.joblist.includes(job._id)) {
-//     return next(new ErrorResponse("Employee already selected", 400));
-//   }
-//   employee.joblist.push(job._id);
-//   job.selectedEmployee.push(employee._id);
-//   await employee.save();
-//   await job.save();
-//   res.status(200).json({ success: true, data: job });
-// });
-
-// // job id in params
-// exports.removeEmployee = asyncHandler(async (req, res, next) => {
-//   const { employeeId } = req.body;
-//   const job = await Job.findById(req.params.id);
-//   if (!job) {
-//     return next(new ErrorResponse("No job found", 404));
-//   }
-//   job.selectedEmployee = job.selectedEmployee.filter(
-//     (employee) => employee !== employeeId
-//   );
-//   await job.save();
-//   res.status(200).json({ success: true, data: job });
-// });
-
 // put request
 exports.saveJobList = asyncHandler(async (req, res, next) => {
   const { jobList } = req.body;
@@ -121,40 +84,8 @@ exports.saveJobList = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: job });
 });
 
-// jobId
-// exports.addEmployee = asyncHandler(async (req, res, next) => {
-//   const { name, resume, email, location, skills, degree, edu_info, jobId } =
-//     req.body;
-//   const job = await Job.findById(jobId);
-//   if (
-//     !name ||
-//     !resume ||
-//     !email ||
-//     !location ||
-//     !skills ||
-//     !degree ||
-//     !edu_info
-//   ) {
-//     return next(new ErrorResponse("Please fill all the fields", 400));
-//   }
-//   let employeeData = {
-//     name,
-//     resume,
-//     email,
-//     location,
-//     skills,
-//     degree,
-//     edu_info,
-//   };
-//   job.selectedEmployee.push(employeeData._id);
-//   if (jobId) {
-//     employeeData.joblist.push(jobId);
-//   } else {
-//     employeeData.joblist = [];
-//   }
-//   const employee = await Employee.create(employeeData);
-//   if (!employee) {
-//     return next(new ErrorResponse("Employee not created", 400));
-//   }
-//   res.status(200).json({ success: true, data: employee });
-// });
+exports.getApplicants = asyncHandler(async (req, res, next) => {
+  const response = await axios.get("http://127.0.0.1:5000/applicants");
+  const applicants = response.data;
+  res.status(200).json({ success: true, data: applicants });
+});
