@@ -1,13 +1,14 @@
-# HRmate
-AI-based candidate filtering uses machine learning to analyze resumes and identify the best fit for a job. This process can include analyzing text data, natural language processing and conducting initial interviews, providing efficient and unbiased results.
+# HRmate-Unleashing AI's potential to revolutionize recruitment
+Our AI-based applicant filtering system analyses resumes, conducts preliminary interviews, and forecasts success using machine learning and natural language processing. It streamlines the hiring process for large MNCs that get a significant volume of applicants by offering effective, unbiased screening and useful insights for hiring managers.
 
 <img src="https://user-images.githubusercontent.com/103214265/215324286-8d3bc478-2dc0-4079-9223-bc81b5dbbe87.jpg" width="1000">
 
 ### Features
-* 
-*
-*
-*
+* AI-driven hiring platforms successfully screen candidates
+* To manage the applications, hiring managers can create their own
+accounts and access their own dashboard.
+* Can design a position to attract individuals who are qualified for it.
+* Recruiters can control the status of an applicant's interviews.
 
 # Tech Architecture
 ![213908685-b77be43e-fe10-49c4-8438-aa963711e4c7](https://user-images.githubusercontent.com/103214265/215324213-21368986-3440-4d15-bf6d-d17d1ee5ed06.png) 
