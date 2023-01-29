@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { AuthProvider } from "../context/AuthContext";
 import toast, { Toaster } from "react-hot-toast";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import login1 from "../assets/login.svg";
 
 const LoginPage = () => {
@@ -16,20 +16,23 @@ const LoginPage = () => {
   const submitHandler = async () => {
     setLoading(true);
     const showAlert = (msg) => {
-      toast.error(msg,{
+      toast.error(msg, {
         style: {
-          borderRadius: '10px',
-          background: '#333',
-          color: '#fff',
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
         },
         duration: 500,
       });
-    }
+    };
     try {
-      const response = await axios.post("http://localhost:8000/api/v1/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://backend-hrmate.onrender.com/api/v1/login",
+        {
+          email,
+          password,
+        }
+      );
       setUser({
         user: response.data.user,
         token: response.data.token,
@@ -130,7 +133,7 @@ const LoginPage = () => {
         </div>
         <div className='hidden lg:flex items-center justify-center bg-purple-100 flex-1 h-[calc(100vh_-_5rem)] dark:bg-[#393E46]'>
           <div className='max-w-xs transform duration-200 hover:scale-110 cursor-pointer'>
-            <img src={login1} alt='login' height="320px"/>
+            <img src={login1} alt='login' height='320px' />
           </div>
         </div>
       </div>

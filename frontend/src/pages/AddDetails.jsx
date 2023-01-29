@@ -16,6 +16,7 @@ import {
   createTheme,
   Autocomplete,
   Stack,
+  CircularProgress,
 } from "@mui/material";
 
 import {
@@ -28,7 +29,7 @@ import toast, { Toaster } from "react-hot-toast";
 import ProtectedRoute from "../components/ProtectedRoute";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 function getSteps() {
   return ["Basic information", "Personal Information"];
@@ -321,12 +322,13 @@ const AddDetails = () => {
       minQualification: "",
     },
   });
-
+  const [loading, setLoading] = useState(false);
   const submitDetailsHandler = async (data) => {
+    setLoading(true);
     data = { ...data, skills: data.skills.join(",") };
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/addJob",
+        "https://backend-hrmate.onrender.com/api/v1/addJob",
         data,
         {
           headers: {
@@ -335,8 +337,12 @@ const AddDetails = () => {
           },
         }
       );
+      setLoading(false);
+      toast.error("Job Added Successfully");
       navigate(`/job/${response.data.data._id}`);
     } catch (error) {
+      toast.error("Something went wrong, Please try again");
+      setLoading(false);
       console.log(error);
     }
   };
@@ -423,10 +429,16 @@ const AddDetails = () => {
                 color='primary'
                 className='dark:bg-purple-700 dark:text-white'
                 onClick={() => submitDetailsHandler(methods.getValues())}
+                disabled={loading}
               >
                 Submit Details
               </Button>
             </div>
+            {loading && (
+              <div className='flex justify-center items-center mt-4'>
+                <CircularProgress />
+              </div>
+            )}
           </>
         ) : (
           <>

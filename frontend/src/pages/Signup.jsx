@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { AuthProvider } from "../context/AuthContext";
 import toast, { Toaster } from "react-hot-toast";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 export default function Signup() {
   const [loading, setLoading] = useState(false);
@@ -18,20 +18,23 @@ export default function Signup() {
     setLoading(true);
     e.preventDefault();
     const showAlert = (msg) => {
-      toast.error(msg,{
+      toast.error(msg, {
         style: {
-          borderRadius: '10px',
-          background: '#333',
-          color: '#fff',
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
         },
       });
-    }
+    };
     try {
-      const res = await axios.post("http://localhost:8000/api/v1/signup", {
-        email,
-        name,
-        password,
-      });
+      const res = await axios.post(
+        "https://backend-hrmate.onrender.com/api/v1/signup",
+        {
+          email,
+          name,
+          password,
+        }
+      );
       setUser({
         user: res.data.user,
         token: res.data.token,
@@ -50,7 +53,9 @@ export default function Signup() {
       });
     }
   };
-  if (user.isAuthenticated === false) {
+  if (user.isAuthenticated === true) {
+    return <Navigate to='/dashboard' />;
+  } else {
     return (
       <motion.div
         initial={{ opacity: 0, x: -100 }}
@@ -302,8 +307,5 @@ export default function Signup() {
         </div>
       </motion.div>
     );
-  }
-  else if (user.isAuthenticated === true) {
-    return <Navigate to='/profile' />;
   }
 }
