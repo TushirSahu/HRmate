@@ -81,7 +81,7 @@ const Profile = () => {
                     </div>
                     <div className="mb-2 text-blueGray-600">
                       <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                      Joined {userData && userData.joinedAt.slice(0, 10)}
+                      Joined {userData && userData.joinedAt}
                     </div>
                   </div>
                   <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
