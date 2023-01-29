@@ -41,4 +41,3 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
   }
   sendTokenResponse(user, 200, res);
 });
-
