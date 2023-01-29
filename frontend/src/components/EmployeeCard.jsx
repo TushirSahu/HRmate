@@ -5,12 +5,12 @@ const EmployeeCard = ({ candidate, job_id, getJob }) => {
   const { name, email, degree, interview, skills } = candidate;
   const handleInterview = async () => {
     const data = {
-      "eid": candidate.id,
-      "interview": !interview,
-    }
+      eid: candidate.id,
+      interview: !interview,
+    };
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/${job_id}/saveJobList`,
+        `https://backend-hrmate.onrender.com/api/v1/${job_id}/saveJobList`,
         data,
         {
           headers: {
@@ -23,7 +23,7 @@ const EmployeeCard = ({ candidate, job_id, getJob }) => {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   return (
     <div className='flex flex-col items-center sm:items-start mb-4'>
@@ -58,15 +58,15 @@ const EmployeeCard = ({ candidate, job_id, getJob }) => {
           </div>
         </div>
         <div className='flex flex-col col-span-2 mb-2 sm:mb-0'>
-            <span
-              className={`sm:px-2 inline-flex text-xs leading-5 min-w-full font-semibold rounded-full ${
-                interview
-                  ? "bg-green-100 text-green-800"
-                  : "bg-red-100 text-red-800"
-              } `}
-            >
-              {interview === true ? "Interviewing" : "Not Interviewed"}
-            </span>
+          <span
+            className={`sm:px-2 inline-flex text-xs leading-5 min-w-full font-semibold rounded-full ${
+              interview
+                ? "bg-green-100 text-green-800"
+                : "bg-red-100 text-red-800"
+            } `}
+          >
+            {interview === true ? "Interviewing" : "Not Interviewed"}
+          </span>
         </div>
         <div className='flex flex-col col-span-3'>
           <div className='sm:px-6 sm:py-4 whitespace-no-wrap sm:text-right text-sm leading-5 font-medium'>

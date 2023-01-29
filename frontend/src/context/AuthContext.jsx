@@ -21,7 +21,7 @@ const AuthContextProvide = (props) => {
       };
       try {
         const { data } = await axios.get(
-          "http://localhost:8000/api/v1/validate",
+          "https://backend-hrmate.onrender.com/api/v1/validate",
           config
         );
         // console.log(data, "validate");
@@ -30,13 +30,12 @@ const AuthContextProvide = (props) => {
           token,
           isAuthenticated: true,
         });
-        
       } catch (error) {
         setUser({
           user: null,
           token: null,
           isAuthenticated: false,
-        })
+        });
         console.log(error);
       }
     }

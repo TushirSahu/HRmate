@@ -28,7 +28,7 @@ import toast, { Toaster } from "react-hot-toast";
 import ProtectedRoute from "../components/ProtectedRoute";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 function getSteps() {
   return ["Basic information", "Personal Information"];
@@ -326,7 +326,7 @@ const AddDetails = () => {
     data = { ...data, skills: data.skills.join(",") };
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/addJob",
+        "https://backend-hrmate.onrender.com/api/v1/addJob",
         data,
         {
           headers: {
