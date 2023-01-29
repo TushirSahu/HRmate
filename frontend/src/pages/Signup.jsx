@@ -53,7 +53,9 @@ export default function Signup() {
       });
     }
   };
-  if (user.isAuthenticated === false) {
+  if (user.isAuthenticated === true) {
+    return <Navigate to='/dashboard' />;
+  } else {
     return (
       <motion.div
         initial={{ opacity: 0, x: -100 }}
@@ -305,7 +307,5 @@ export default function Signup() {
         </div>
       </motion.div>
     );
-  } else if (user.isAuthenticated === true) {
-    return <Navigate to='/profile' />;
   }
 }
