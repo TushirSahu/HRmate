@@ -40,7 +40,7 @@ exports.addJob = asyncHandler(async (req, res, next) => {
     location,
   };
   const response = await axios.post(
-    "https://flask-api-resume-1.onrender.com/recommend_resume/recommend_resume",
+    "https://flask-api-resume-1.onrender.com/recommend_resume",
     data
   );
   let employeeList = response.data;
