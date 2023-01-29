@@ -19,3 +19,86 @@ accounts and access their own dashboard.
 
 
 <img src="https://user-images.githubusercontent.com/68912239/213908900-26e28465-34ce-4c94-81b5-e2c7bb88e37d.png" width="400" height="300">
+
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/prajjwalkapoor/HRmate
+```
+
+### Environment Variables
+
+To run this project, you will need to create `config.env` in `HRmate/backend/config` and add the following environment variables.
+```
+NODE_ENV=development
+PORT=8000
+MONGO_URI=mongodb+srv://varun_2:skullcandy@cluster0.zeeduyq.mongodb.net/test
+JWT_SECRET=dast
+JWT_EXPIRE=30d
+```
+
+### Start the Express server
+
+Go to the project directory
+
+```bash
+  cd HRmate/backend
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
+
+
+### Start the Flask server
+
+Go to the project directory
+
+```bash
+  cd HRmate/flask_api
+```
+
+Install dependencies
+
+```bash
+  pip install requirements.txt
+```
+
+Start the server
+
+```bash
+  python app.py
+```
+
+### Start the vite server
+
+Go to the project directory
+
+```bash
+  cd HRmate/frontend
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
+
