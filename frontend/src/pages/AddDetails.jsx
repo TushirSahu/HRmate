@@ -338,8 +338,10 @@ const AddDetails = () => {
         }
       );
       setLoading(false);
+      toast.error("Job Added Successfully");
       navigate(`/job/${response.data.data._id}`);
     } catch (error) {
+      toast.error("Something went wrong, Please try again");
       setLoading(false);
       console.log(error);
     }
