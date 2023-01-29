@@ -4,6 +4,16 @@ import pandas as pd
 
 app = Flask(__name__)
 
+@app.route('/', methods=['GET'])
+def home():
+    return "Hello Tushir ki mummy"
+    
+@app.route('/applicants', methods=['GET'])
+def applicants():
+    df=pd.read_csv('resume1.csv')
+    df = df[['user_id', 'name', 'URL', 'location', 'degree', 'skills']]
+    return jsonify(df.to_dict(orient='records'))
+
 
 @app.route('/recommend_resume', methods=['POST'])
 def recommend_resume():
@@ -68,4 +78,4 @@ def recommend_resume():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
