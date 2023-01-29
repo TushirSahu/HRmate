@@ -44,7 +44,7 @@ exports.addJob = asyncHandler(async (req, res, next) => {
     data
   );
   let employeeList = response.data;
-  for(let i=0;i<employeeList.length;i++){
+  for (let i = 0; i < employeeList.length; i++) {
     employeeList[i].interview = false;
   }
   jobData.selectedEmployee = employeeList;
@@ -72,16 +72,28 @@ exports.getJob = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: job });
 });
 
-// put request
+// update the interview status of the employee
 exports.saveJobList = asyncHandler(async (req, res, next) => {
-  const { jobList } = req.body;
-  const job = await Job.findById(req.params.id);
-  if (!job) {
-    return next(new ErrorResponse("No job found", 404));
+  try {
+    const { eid, interview } = req.body;
+    const job = await Job.findById(req.params.id);
+    console.log(job);
+    if (!job) {
+      return next(new ErrorResponse("No job found", 404));
+    }
+    let employeeList = job.selectedEmployee;
+    for (let i = 0; i < employeeList.length; i++) {
+      if (employeeList[i].id == eid) {
+        employeeList[i].interview = interview;
+      }
+    }
+    job.selectedEmployee = employeeList;
+    // use some other mehtod to update the job
+    await job.updateOne({ selectedEmployee: employeeList });
+    res.status(200).json({ success: true, data: job });
+  } catch (error) {
+    console.log(error);
   }
-  job.selectedEmployee = jobList;
-  await job.save();
-  res.status(200).json({ success: true, data: job });
 });
 
 exports.getApplicants = asyncHandler(async (req, res, next) => {

@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import Navbar from "../components/Navbar";
-import { useState } from "react";
-import axios from "axios";
+import { AuthProvider } from "../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 export default function HomePage() {
-
+  const { user, setUser } = useContext(AuthProvider);
+  const navigate = useNavigate();
   return (
     <div>
       <Navbar />
@@ -72,19 +73,19 @@ export default function HomePage() {
                   data-aos-delay="300"
                 >
                   <div>
-                    <a
+                    <Link
+                      to = {user.isAuthenticated ? "/dashboard" : "/signup"}
                       className="btn text-white py-4 px-12 rounded  bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
-                      href="#0"
                     >
-                      Start free trial
-                    </a>
+                      Get started
+                    </Link>
                   </div>
                   <div className="hidden sm:block">
                     <a
                       className="btn text-white py-4 px-12 rounded bg-gray-900 hover:bg-gray-800 w-full sm:w-auto sm:ml-4"
                       href="#0"
                     >
-                      Learn more
+                      About us
                     </a>
                   </div>
                 </div>
