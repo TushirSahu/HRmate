@@ -67,17 +67,11 @@ exports.getJobs = asyncHandler(async (req, res, next) => {
 
 //job id in params
 exports.getJob = asyncHandler(async (req, res, next) => {
-  console.log(req.params.id);
   const job = await Job.findById(req.params.id);
   if (!job) {
     return next(new ErrorResponse("No job found", 404));
   }
-  const employees = [];
-  job.selectedEmployee.map(async (employee) => {
-    const temp = await Employee.findById(employee);
-    employees.push(temp);
-  });
-  res.status(200).json({ success: true, data: job, employees: employees });
+  res.status(200).json({ success: true, data: job });
 });
 
 // // job id in params
@@ -128,39 +122,39 @@ exports.saveJobList = asyncHandler(async (req, res, next) => {
 });
 
 // jobId
-exports.addEmployee = asyncHandler(async (req, res, next) => {
-  const { name, resume, email, location, skills, degree, edu_info, jobId } =
-    req.body;
-  const job = await Job.findById(jobId);
-  if (
-    !name ||
-    !resume ||
-    !email ||
-    !location ||
-    !skills ||
-    !degree ||
-    !edu_info
-  ) {
-    return next(new ErrorResponse("Please fill all the fields", 400));
-  }
-  let employeeData = {
-    name,
-    resume,
-    email,
-    location,
-    skills,
-    degree,
-    edu_info,
-  };
-  job.selectedEmployee.push(employeeData._id);
-  if (jobId) {
-    employeeData.joblist.push(jobId);
-  } else {
-    employeeData.joblist = [];
-  }
-  const employee = await Employee.create(employeeData);
-  if (!employee) {
-    return next(new ErrorResponse("Employee not created", 400));
-  }
-  res.status(200).json({ success: true, data: employee });
-});
+// exports.addEmployee = asyncHandler(async (req, res, next) => {
+//   const { name, resume, email, location, skills, degree, edu_info, jobId } =
+//     req.body;
+//   const job = await Job.findById(jobId);
+//   if (
+//     !name ||
+//     !resume ||
+//     !email ||
+//     !location ||
+//     !skills ||
+//     !degree ||
+//     !edu_info
+//   ) {
+//     return next(new ErrorResponse("Please fill all the fields", 400));
+//   }
+//   let employeeData = {
+//     name,
+//     resume,
+//     email,
+//     location,
+//     skills,
+//     degree,
+//     edu_info,
+//   };
+//   job.selectedEmployee.push(employeeData._id);
+//   if (jobId) {
+//     employeeData.joblist.push(jobId);
+//   } else {
+//     employeeData.joblist = [];
+//   }
+//   const employee = await Employee.create(employeeData);
+//   if (!employee) {
+//     return next(new ErrorResponse("Employee not created", 400));
+//   }
+//   res.status(200).json({ success: true, data: employee });
+// });

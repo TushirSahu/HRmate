@@ -1,14 +1,14 @@
 import React from "react";
 
-const EmployeeCard = () => {
+const EmployeeCard = ({name,email,skills,location}) => {
     return (
         <div className="flex flex-col items-center sm:items-start mb-4">
             <div className="dark:bg-gray-800 max-w-fit flex flex-col justify-start sm:space-x-24 items-start sm:flex-row gap-2 sm:items-center px-5 py-4 rounded-lg shadow-lg">
                 <div className="flex flex-row space-x-8 sm:flex-col sm:space-x-0">
                     <div className="text-md leading-5 font-medium text-gray-900 dark:text-white">
-                        John Doe
+                        {name}
                     </div>
-                    <div className="text-sm leading-5 text-gray-500">john@example.com</div>
+                    <div className="text-sm leading-5 text-gray-500">{email}</div>
                 </div>
                 <div className="flex flex-row space-x-8 sm:flex-col sm:space-x-0">
                     <div className="text-md leading-5 text-gray-900 dark:text-white">Software Engineer</div>
