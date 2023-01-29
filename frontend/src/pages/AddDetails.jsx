@@ -28,6 +28,7 @@ import toast, { Toaster } from "react-hot-toast";
 import ProtectedRoute from "../components/ProtectedRoute";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { motion } from 'framer-motion';
 
 function getSteps() {
   return ["Basic information", "Personal Information"];
@@ -158,7 +159,11 @@ const skills = [
 const BasicForm = () => {
   const { control } = useFormContext();
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <Controller
         control={control}
         name='title'
@@ -189,7 +194,7 @@ const BasicForm = () => {
           />
         )}
       />
-    </>
+    </motion.div>
   );
 };
 
@@ -197,12 +202,15 @@ const PersonalForm = () => {
   const { control } = useFormContext();
   const [data, setData] = useState([]);
 
-  // set useform skills field value
   const { setValue } = useFormContext();
   setValue("skills", data);
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <Controller
         control={control}
         name='salary'
@@ -287,7 +295,7 @@ const PersonalForm = () => {
           </div>
         )}
       />
-    </>
+    </motion.div>
   );
 };
 

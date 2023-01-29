@@ -1,16 +1,20 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import Navbar from "../components/Navbar";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { AuthProvider } from "../context/AuthContext";
+import { motion } from 'framer-motion';
 
 const Profile = () => {
   const { user } = useContext(AuthProvider);
   const userData = user.user;
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0, x: -100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 100, transtion: { duration: 0.5 } }}
+    >
       <ProtectedRoute>
         <Navbar />
         <main class="relative profile-page">
@@ -81,7 +85,7 @@ const Profile = () => {
                     </div>
                     <div className="mb-2 text-blueGray-600">
                       <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                      Joined {userData && userData.joinedAt}
+                      Joined: {userData && userData.joinedAt.slice(0,10)}
                     </div>
                   </div>
                   <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
@@ -131,7 +135,7 @@ const Profile = () => {
           </section>
         </main>
       </ProtectedRoute>
-    </>
+    </motion.div>
   );
 };
 

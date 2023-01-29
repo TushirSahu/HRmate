@@ -8,7 +8,11 @@ export default function HomePage() {
   const { user, setUser } = useContext(AuthProvider);
   const navigate = useNavigate();
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, x: -100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 100, transition: { duration: 0.5 } }}
+    >
       <Navbar />
       <section className="relative h-fit w-screen overflow-hidden bg-purple-50 dark:bg-[#121212]">
         {/* Illustration behind hero content */}
@@ -51,9 +55,9 @@ export default function HomePage() {
                 className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4 dark:text-white"
                 data-aos="zoom-y-out"
               >
-                Filter Candidates For{" "}
+                Filter Candidates For Jobs{" "}
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-400">
-                  Job
+                  with AI
                 </span>
               </h1>
               <div className="max-w-3xl mx-auto">
@@ -122,6 +126,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-    </div>
+    </motion.div>
   );
 }

@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { AuthProvider } from "../context/AuthContext";
 import toast, { Toaster } from "react-hot-toast";
+import { motion } from 'framer-motion';
 
 export default function Signup() {
   const [loading, setLoading] = useState(false);
@@ -49,9 +50,13 @@ export default function Signup() {
       });
     }
   };
-  if (user.isAuthenticated === false)
+  if (user.isAuthenticated === false) {
     return (
-      <div>
+      <motion.div
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: 100, transtion: { duration: 0.5 } }}
+      >
         <Toaster />
         <Navbar />
         <div className='lg:flex'>
@@ -106,7 +111,7 @@ export default function Signup() {
                     </div>
                     <input
                       className='w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-purple-500 dark:bg-[#121212] dark:text-white'
-                      type=''
+                      type='password'
                       placeholder='Enter your password'
                       onChange={(e) => setPassword(e.target.value)}
                     />
@@ -295,8 +300,9 @@ export default function Signup() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     );
+  }
   else if (user.isAuthenticated === true) {
     return <Navigate to='/profile' />;
   }
